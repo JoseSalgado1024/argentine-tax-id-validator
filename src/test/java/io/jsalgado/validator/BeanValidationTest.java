@@ -21,6 +21,7 @@ package io.jsalgado.validator;
 
 import io.jsalgado.validator.annotations.ValidCuit;
 import io.jsalgado.validator.annotations.ValidCuil;
+import io.jsalgado.validator.annotations.ValidCuitOrCuil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -231,5 +232,132 @@ class BeanValidationTest {
         assertThat(validator.isValid("30-12345678-1", null)).isFalse(); // Company (not CUIL)
         assertThat(validator.isValid("invalid", null)).isFalse();
         assertThat(validator.isValid("", null)).isFalse();
+    }
+
+    // ===== @ValidCuitOrCuil TESTS =====
+
+    static class TestCuitOrCuilDto {
+        @ValidCuitOrCuil
+        private String taxId;
+
+        public TestCuitOrCuilDto(String taxId) {
+            this.taxId = taxId;
+        }
+
+        public String getTaxId() {
+            return taxId;
+        }
+    }
+
+    @ParameterizedTest(name = "@ValidCuitOrCuil should accept valid tax ID: {0}")
+    @ValueSource(strings = {
+        "30-12345678-1",    // Valid CUIT
+        "20-12345678-6",    // Valid CUIL
+        "27-12345678-0",    // Valid CUIL female
+        "33-12345678-0",    // Valid foreign company CUIT
+        "23-12345678-5",    // Valid foreign individual CUIL
+        "34-12345678-7"     // Valid public entity CUIT
+    })
+    void validCuitOrCuilShouldAcceptAnyValidTaxId(String validTaxId) {
+        TestCuitOrCuilDto dto = new TestCuitOrCuilDto(validTaxId);
+        
+        Set<ConstraintViolation<TestCuitOrCuilDto>> violations = validator.validate(dto);
+        
+        assertThat(violations).isEmpty();
+    }
+
+    @ParameterizedTest(name = "@ValidCuitOrCuil should reject invalid tax ID: {0}")
+    @ValueSource(strings = {
+        "30-12345678-9",    // Wrong check digit
+        "20-12345678-9",    // Wrong check digit
+        "99-12345678-6",    // Invalid prefix
+        "invalid",          // Non-numeric
+        "123456789",        // Too short
+        "123456789012",     // Too long
+        "",                 // Empty
+        "   "               // Whitespace only
+    })
+    void validCuitOrCuilShouldRejectInvalidTaxId(String invalidTaxId) {
+        TestCuitOrCuilDto dto = new TestCuitOrCuilDto(invalidTaxId);
+        
+        Set<ConstraintViolation<TestCuitOrCuilDto>> violations = validator.validate(dto);
+        
+        assertThat(violations).hasSize(1);
+        assertThat(violations.iterator().next().getMessage()).isEqualTo("Invalid Argentine CUIT or CUIL");
+    }
+
+    @Test
+    @DisplayName("@ValidCuitOrCuil should accept null")
+    void validCuitOrCuilShouldAcceptNull() {
+        TestCuitOrCuilDto dto = new TestCuitOrCuilDto(null);
+        
+        Set<ConstraintViolation<TestCuitOrCuilDto>> violations = validator.validate(dto);
+        
+        assertThat(violations).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Manual test: ValidCuitOrCuil validator directly")
+    void testValidCuitOrCuilValidatorDirectly() {
+        ValidCuitOrCuil.CuitOrCuilValidator validator = new ValidCuitOrCuil.CuitOrCuilValidator();
+        validator.initialize(null);
+        
+        // Valid cases (both CUIT and CUIL)
+        assertThat(validator.isValid("30-12345678-1", null)).isTrue(); // Company CUIT
+        assertThat(validator.isValid("20-12345678-6", null)).isTrue(); // Individual CUIL
+        assertThat(validator.isValid("27-12345678-0", null)).isTrue(); // Female CUIL
+        assertThat(validator.isValid(null, null)).isTrue(); // Null handling
+        
+        // Invalid cases
+        assertThat(validator.isValid("invalid", null)).isFalse();
+        assertThat(validator.isValid("", null)).isFalse();
+        assertThat(validator.isValid("30-12345678-9", null)).isFalse(); // Wrong check digit
+    }
+
+    // ===== COMPREHENSIVE INTEGRATION TEST =====
+
+    static class TestAllAnnotationsDto {
+        @ValidCuit
+        private String cuit;
+
+        @ValidCuil
+        private String cuil;
+
+        @ValidCuitOrCuil
+        private String anyTaxId;
+
+        public TestAllAnnotationsDto(String cuit, String cuil, String anyTaxId) {
+            this.cuit = cuit;
+            this.cuil = cuil;
+            this.anyTaxId = anyTaxId;
+        }
+    }
+
+    @Test
+    @DisplayName("Should work with all three annotations in same DTO")
+    void shouldWorkWithAllThreeAnnotationsInSameDto() {
+        TestAllAnnotationsDto dto = new TestAllAnnotationsDto(
+            "30-12345678-1",    // Valid CUIT
+            "20-12345678-6",    // Valid CUIL  
+            "33-12345678-0"     // Valid CUIT (accepted by @ValidCuitOrCuil)
+        );
+        
+        Set<ConstraintViolation<TestAllAnnotationsDto>> violations = validator.validate(dto);
+        
+        assertThat(violations).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should properly reject mixed invalid values")
+    void shouldProperlyRejectMixedInvalidValues() {
+        TestAllAnnotationsDto dto = new TestAllAnnotationsDto(
+            "20-12345678-6",    // CUIL in CUIT field (should fail)
+            "30-12345678-1",    // CUIT in CUIL field (should fail)
+            "invalid"           // Invalid in general field (should fail)
+        );
+        
+        Set<ConstraintViolation<TestAllAnnotationsDto>> violations = validator.validate(dto);
+        
+        assertThat(violations).hasSize(3);
     }
 }

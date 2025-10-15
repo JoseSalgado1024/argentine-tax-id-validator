@@ -48,17 +48,20 @@
     </issueManagement>
 
     <properties>
+        <!-- Java 17+ Requirement -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- ✅ VERSIONES CORREGIDAS -->
         <micronaut.core.version>4.4.2</micronaut.core.version>
         <micronaut.test.version>4.1.0</micronaut.test.version>
         <junit.version>5.10.0</junit.version>
         <mockito.version>5.6.0</mockito.version>
         <assertj.version>3.24.2</assertj.version>
 
+        <!-- Plugin versions -->
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
         <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
@@ -69,6 +72,8 @@
     </properties>
 
     <dependencies>
+        <!-- ✅ DEPENDENCIAS OPCIONALES (provided scope) -->
+
         <!-- Optional Micronaut integration -->
         <dependency>
             <groupId>io.micronaut</groupId>
@@ -84,6 +89,8 @@
             <version>3.0.2</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- ✅ TEST DEPENDENCIES - VERSIONES COMPATIBLES -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -127,7 +134,8 @@
             <version>4.0.2</version>
             <scope>test</scope>
         </dependency>
-
+        
+        <!-- ✅ MICRONAUT TEST - VERSIÓN CORREGIDA (OPCIONAL) -->
         <dependency>
             <groupId>io.micronaut.test</groupId>
             <artifactId>micronaut-test-junit5</artifactId>
