@@ -5,7 +5,7 @@ A Java library for validating Argentine CUIT and CUIL tax identifiers.
 [![Coverage](https://img.shields.io/badge/coverage-99.5%25-brightgreen.svg)](target/site/jacoco/index.html)
 [![Java](https://img.shields.io/badge/java-17+-blue.svg)](https://openjdk.org/projects/jdk/17/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+[![Maven Package](https://github.com/JoseSalgado1024/argentine-tax-id-validator/actions/workflows/maven-publish.yml/badge.svg?branch=development&event=push)](https://github.com/JoseSalgado1024/argentine-tax-id-validator/actions/workflows/maven-publish.yml)
 ## Features
 
 - Validates CUIT (Código Único de Identificación Tributaria) 
