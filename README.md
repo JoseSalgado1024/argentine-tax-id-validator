@@ -2,7 +2,7 @@
 
 A Java library for validating Argentine CUIT and CUIL tax identifiers.
 
-[![Coverage](https://img.shields.io/badge/coverage-81%25-green.svg)](target/site/jacoco/index.html)
+[![Coverage](https://img.shields.io/badge/coverage-99.5%25-brightgreen.svg)](target/site/jacoco/index.html)
 [![Java](https://img.shields.io/badge/java-17+-blue.svg)](https://openjdk.org/projects/jdk/17/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -12,7 +12,7 @@ A Java library for validating Argentine CUIT and CUIL tax identifiers.
 - Validates CUIL (Código Único de Identificación Laboral)
 - Zero runtime dependencies for core functionality
 - Thread-safe implementation
-- Bean Validation annotations included
+- Bean Validation annotations: @ValidCuit, @ValidCuil, @ValidCuitOrCuil
 - Compatible with Micronaut, Spring Boot, and plain Java
 
 ## Installation
@@ -58,6 +58,7 @@ ETaxIdType type = ArgentineTaxIdValidator.getType("20-12345678-6");
 ```java
 import io.jsalgado.validator.annotations.ValidCuit;
 import io.jsalgado.validator.annotations.ValidCuil;
+import io.jsalgado.validator.annotations.ValidCuitOrCuil;
 
 public class TaxPayerDto {
     @ValidCuit
@@ -65,6 +66,9 @@ public class TaxPayerDto {
     
     @ValidCuil 
     private String cuil;
+    
+    @ValidCuitOrCuil
+    private String anyTaxId;
 }
 ```
 
