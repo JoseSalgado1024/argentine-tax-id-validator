@@ -33,7 +33,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  * lines
  */
 @DisplayName("Coverage Improvement Tests")
-class CoverageImprovementTest {
+class MiscellaneousImprovementTest {
 
   // ===== UNCOVERED LINES TESTS =====
 
