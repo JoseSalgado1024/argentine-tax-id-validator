@@ -8,9 +8,8 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write      # Para dependency snapshots según GitHub docs
-      packages: write      # Para GitHub Packages publishing
-      actions: read        # Para workflow metadata
+      contents: read       # Reducido a solo lectura
+      packages: write      # Solo lo necesario para publicar
 
     steps:
     - uses: actions/checkout@v4
@@ -22,13 +21,8 @@ jobs:
         distribution: 'temurin'
         server-id: github
         settings-path: ${{ github.workspace }}
-        
-    - name: Cache Maven dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        # Deshabilitar dependency submission automática
+        cache: maven
         
     - name: Run tests
       run: mvn clean test
