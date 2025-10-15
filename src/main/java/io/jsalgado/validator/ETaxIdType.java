@@ -21,13 +21,13 @@ package io.jsalgado.validator;
 
 /** Enumeration of CUIT/CUIL types based on the two-digit prefix. */
 public enum ETaxIdType {
-  MALE_INDIVIDUAL("20", "Male Individual", true, true),
-  FEMALE_INDIVIDUAL("27", "Female Individual", true, true),
+  MALE_INDIVIDUAL("20", "Male Individual", false, true),
+  FEMALE_INDIVIDUAL("27", "Female Individual", false, true),
   COMPANY("30", "Company/Corporation", true, false),
-  FOREIGN_INDIVIDUAL("23", "Foreign Individual", true, true),
+  FOREIGN_INDIVIDUAL("23", "Foreign Individual", false, true),
   FOREIGN_COMPANY("33", "Foreign Company", true, false),
   PUBLIC_ENTITY("34", "Public Entity", true, false),
-  MALE_INDIVIDUAL_ALT("24", "Male Individual (Alternative)", true, true),
+  MALE_INDIVIDUAL_ALT("24", "Male Individual (Alternative)", false, true),
   UNKNOWN("00", "Unknown", false, false);
 
   private final String prefix;
