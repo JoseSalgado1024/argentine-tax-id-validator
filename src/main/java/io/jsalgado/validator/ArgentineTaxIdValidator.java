@@ -96,7 +96,7 @@ public final class ArgentineTaxIdValidator {
 
     String clean = cleanInput(identifier);
     return String.format(
-        "%s-%s-%s", clean.substring(0, 2), clean.substring(2, 10), clean.substring(10, 11));
+        "%s-%s-%s", clean.substring(0, 2), clean.substring(2, 10), clean.charAt(10));
   }
 
   /** Extracts the document number from a valid CUIT/CUIL. */

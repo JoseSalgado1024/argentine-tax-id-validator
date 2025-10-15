@@ -28,10 +28,10 @@ import java.lang.annotation.*;
 
 /**
  * Bean Validation annotation for Argentine CUIT or CUIL validation.
- * 
- * <p>Validates that the annotated string is either a valid CUIT or CUIL,
- * without distinguishing between the two types. This is useful for generic
- * tax identifier fields where both types are acceptable.
+ *
+ * <p>Validates that the annotated string is either a valid CUIT or CUIL, without distinguishing
+ * between the two types. This is useful for generic tax identifier fields where both types are
+ * acceptable.
  *
  * @author José Salgado
  */
