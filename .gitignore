@@ -1,0 +1,169 @@
+# ===== MAVEN BUILD =====
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ===== JAVA COMPILED =====
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# ===== IDE FILES =====
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ===== SYSTEM FILES =====
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.log
+Desktop.ini
+
+# Linux
+*~
+
+# ===== LOGS & TEMP =====
+logs/
+*.log
+*.log.*
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.nfs*
+
+# ===== TESTING =====
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Test results
+TEST-*.xml
+test-output/
+hs_err_pid*
+
+# ===== SECURITY & CREDENTIALS =====
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# AWS
+.aws/
+
+# ===== VERSION CONTROL =====
+.git/
+.gitattributes
+.gitmodules
+
+# ===== BACKUPS & TEMP FILES =====
+*.backup
+*.bak
+*.old
+*.orig
+*.rej
+*~
+temp_jacoco.xml
+CalculateCheckDigit.java
+CalculateCheckDigit.class
+pom.xml.backup
+
+# ===== DOCUMENTATION BUILD =====
+site/
+target/site/
+docs/_build/
+docs/build/
+
+# ===== JACOCO REPORTS (Keep source, ignore temp) =====
+jacoco.exec
+*.exec
+
+# ===== MISC =====
+.metadata
+.recommenders
+.cache
+.sass-cache
+*.pid
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== KEEP THESE =====
+!.gitkeep
+!.gitignore
+!.github/
